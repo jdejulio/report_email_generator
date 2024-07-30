@@ -5,6 +5,7 @@ import json
 import locale
 import sys
 import reports
+import emails
 
 def load_data(filename):
   """Loads the contents of filename as a JSON file."""
@@ -85,7 +86,8 @@ def main(argv):
   summary_text = "<br/>".join(summary)
   reports.generate("car_sales_report.pdf", "Car Sales Summary", summary_text, table_data)
   # TODO: send the PDF report as an email attachment
-
+  message = emails.generate("automation@example.com", "student@example.com", "Sales summary for last month", summary_text, "car_sales_report.pdf")
+  emails.send(message)
 
 if __name__ == "__main__":
   main(sys.argv)
